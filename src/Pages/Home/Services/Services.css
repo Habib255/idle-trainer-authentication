@@ -1,0 +1,23 @@
+.services {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+
+}
+
+@media only screen and (max-width: 1024px) {
+    .services {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .services {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.service-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
