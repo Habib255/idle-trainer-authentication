@@ -10,13 +10,13 @@ const Header = () => {
         <>
             <Navbar bg="dark" variant="dark">
                 <Container className='nav-container'>
-                    <Navbar.Brand as={Link} to="/">Idle Trainer</Navbar.Brand>
-                    <Nav className="navbar me-auto">
+                    <div>  <Navbar.Brand as={Link} to="/">Idle Trainer</Navbar.Brand></div>
+                    <div>  <Nav className="navbar me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/about">About</Nav.Link>
                         <Nav.Link as={Link} to="/login">Login</Nav.Link>
 
-                    </Nav>
+                    </Nav></div>
                 </Container>
             </Navbar>
 
