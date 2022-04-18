@@ -1,10 +1,12 @@
 import React from 'react';
 
 const Footer = () => {
+    const today = new Date();
+    const year = today.getFullYear();
     return (
-        <div>
-            <h3>this is footer</h3>
-        </div>
+        <footer className='text-center mt-5'>
+            <p><small>copyright &copy; {year} Alrights Reserve to Idle Trainer </small></p>
+        </footer>
     );
 };
 

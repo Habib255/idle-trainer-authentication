@@ -9,12 +9,14 @@ const Login = () => {
             <h2 className='text-primary text-center mt-2'>Please Login</h2>
             <Form >
                 <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" required />
                 </Form.Group>
-                <Button variant="primary w-50 mx-auto d-block mb-2" type="submit">
+                <Button variant="primary w-100 mx-auto d-block mb-2" type="submit">
                     Login
                 </Button>
             </Form>
