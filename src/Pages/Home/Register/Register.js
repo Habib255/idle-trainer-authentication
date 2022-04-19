@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import './Register.css'
+
 
 const Register = () => {
     const [confirmError, setConfirmError] = useState('')
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const navigate = useNavigate()
     const [
         createUserWithEmailAndPassword,
@@ -33,6 +36,13 @@ const Register = () => {
     }
     if (user) {
         navigate('/')
+    }
+    if (googleError) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
     }
     return (
 
@@ -68,7 +78,7 @@ const Register = () => {
                         Already register ? <Link className=' text-decoration-none' to="/login">Login here</Link>
                     </Form.Text>
                 </Form.Group>
-                {createUser && <p>user reg succ</p>}
+                <p onClick={() => signInWithGoogle()} className='text-danger pointer'>Sign In with Google</p>
             </Form>
         </div>
     );
