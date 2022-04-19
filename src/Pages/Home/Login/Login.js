@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 
@@ -12,6 +12,7 @@ const Login = () => {
         password: '',
         confirmPassword: ''
     })
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [
         signInWithEmailAndPassword,
         user,
@@ -50,7 +51,6 @@ const Login = () => {
                     <Form.Control name='password' onBlur={(event) => handleFormControl(event)} type="password" placeholder="Password" required />
                 </Form.Group>
 
-
                 <Form.Group className="mb-3">
                     <Form.Text className='text-danger'>
                         {confirmError}
@@ -66,7 +66,7 @@ const Login = () => {
                         New to Idle Trainer ? <Link className='text-decoration-none' to="/register">Register here</Link>
                     </Form.Text>
                 </Form.Group>
-                {user && <p>user login successs</p>}
+                <p onClick={() => signInWithGoogle()} className='text-danger pointer'>Sign In with Google</p>
             </Form>
         </div>
     );

@@ -44,7 +44,7 @@ const Blogs = () => {
                 </ul>
             </div>
             <div>
-                <h4>Question: What other service does firebase provide other than authentication? </h4>
+                <h4>Question 3: What other service does firebase provide other than authentication? </h4>
                 <p><strong>Answer:</strong> Firebase provides not only authentication but also some other important service like-</p>
                 <ul>
                     <li>Cloud firestore</li>
