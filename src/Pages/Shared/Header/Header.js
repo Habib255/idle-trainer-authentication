@@ -27,7 +27,7 @@ const Header = () => {
                             <Nav.Link as={Link} to="/blogs">Blogs</Nav.Link>
                             {user ?
                                 <button onClick={handleSignOut}>
-                                    Sign Out
+                                    sign out
                                 </button>
                                 :
 

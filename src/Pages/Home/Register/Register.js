@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init'
+
 const Register = () => {
     const navigate = useNavigate()
-    const [CreateUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth)
+    const [error, setError] = useState('')
+    const [CreateUserWithEmailAndPassword, user, loading] = useCreateUserWithEmailAndPassword(auth)
     const submitCreateUser = event => {
         event.preventDefault()
         const name = event.target.name.value;
@@ -13,14 +15,21 @@ const Register = () => {
         const password = event.target.password.value;
         const confirmPassword = event.target.confirmPassword.value
         if (password !== confirmPassword) {
-            const error = ('Your two password did not match')
+            setError('Your two password did not match')
             return
         }
+        if (password.length < 6) {
+            setError('password should 6 character & contains digit,small & capital letter & sprcial')
+            return
+        }
+
+        setError('')
         CreateUserWithEmailAndPassword(email, password)
     }
     if (user) {
         navigate('/')
     }
+
     const navigateToLogin = () => {
         navigate('/login')
     }
@@ -51,16 +60,12 @@ const Register = () => {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Agree our terms and conditions" required />
                 </Form.Group>
-
+                <p className='text-danger text-center'>{error?.message}</p>
                 <input className='btn btn-primary w-100' type="submit" value="Submit" />
-
-
-            </Form>
-
+            </Form><br />
             <p className='text-center'>Or</p>
             <button className='btn btn-info w-100'>Sign in with Google</button>
-
-            <p>Already Register? <span className='text-primary ' onClick={navigateToLogin} >Login here</span></p>
+            <p>Already Register? <span className='text-primary pointer' onClick={navigateToLogin} >Login here</span></p>
 
 
 

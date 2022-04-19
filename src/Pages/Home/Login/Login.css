@@ -6,3 +6,8 @@
 .login-btn {
     text-align: center;
 }
+
+.pointer:hover {
+    cursor: pointer;
+
+}

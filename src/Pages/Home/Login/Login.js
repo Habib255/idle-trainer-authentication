@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -9,14 +9,14 @@ import { useRef } from 'react';
 const Login = () => {
     const emailRef = useRef('')
     const passwordRef = useRef('')
-    const navigate = useNavigate('')
+    const navigate = useNavigate()
     const location = useLocation()
-    let from = location.state?.pathname || '/'
+    const [error, setError] = useState('')
+    let from = location.state?.from?.pathname || '/'
     const [
         signInWithEmailAndPassword,
         user,
         loading,
-        error,
     ] = useSignInWithEmailAndPassword(auth);
     const navigateToRegister = () => {
         navigate('/register')
@@ -48,7 +48,7 @@ const Login = () => {
                 </Button>
             </Form>
 
-            <p>New to Idle trainer? <span className='text-primary pe-auto text-decoration-none' onClick={navigateToRegister}>Please Register</span> </p>
+            <p>New to Idle trainer? <span className='text-primary pe-auto text-decoration-none pointer' onClick={navigateToRegister}>Please Register</span> </p>
             <p>Forget Password?<button className='btn btn-link text-primary pe-auto text-decoration-none'>Reset Password</button> </p>
 
         </div>

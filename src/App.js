@@ -9,6 +9,7 @@ import Footer from './Pages/Shared/Footer/Footer';
 import Blogs from './Pages/Home/Blogs/Blogs';
 import Checkout from './Pages/Home/Checkout/Checkout';
 import RequireAuth from './Pages/Home/RequireAuth/RequireAuth';
+import NotFound from './Pages/Home/NotFound/NotFound';
 
 
 function App() {
@@ -24,12 +25,7 @@ function App() {
         <Route path="/checkout" element={<RequireAuth>
           <Checkout />
         </RequireAuth>} />
-
-
-
-
-
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer></Footer>
     </div>

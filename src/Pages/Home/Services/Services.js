@@ -13,28 +13,28 @@ const Services = () => {
             id: 11,
             type: " get advise and online live support/class only",
             img: img1,
-            price: "350 / per - month"
+            price: "$150 / month"
         },
         {
             name: "level 2",
             id: 12,
             type: "live practice with trainer at morning and evening",
             img: img2,
-            price: "$750 / per - month"
+            price: "$350 / month"
         },
         {
             name: "level pro",
             id: 13,
             type: "live practice at morning & evening and online support and advise 24/7",
             img: img3,
-            price: "$1000 / per - month"
+            price: "$400 / month"
         },
         {
             name: "Healthy meal pro",
             id: 14,
             type: "live practice at morning & evening and online support and advise 24/7",
             img: img8,
-            price: "+ 200 with level 2 and level pro / per - month"
+            price: "+ $200 with level 2 and level pro / month"
         }
     ]
 
