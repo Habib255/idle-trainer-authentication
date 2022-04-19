@@ -1,56 +1,73 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
-import './Login.css'
-import { useRef } from 'react';
 
 const Login = () => {
-    const emailRef = useRef('')
-    const passwordRef = useRef('')
-    const navigate = useNavigate()
-    const location = useLocation()
-    const [error, setError] = useState('')
-    let from = location.state?.from?.pathname || '/'
+    const [login, setLogin] = useState(true)
+    const [confirmError, setConfirmError] = useState('')
+    const [userInfo, setUserInfo] = useState({
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
     const [
         signInWithEmailAndPassword,
         user,
         loading,
+        error,
     ] = useSignInWithEmailAndPassword(auth);
-    const navigateToRegister = () => {
-        navigate('/register')
+    const [loginUser, loginloading, loginerror] = useAuthState(auth);
+    const handleFormControl = (event) => {
+
+        userInfo[event.target.name] = event.target.value
     }
-    if (user) {
-        navigate(from, { replace: true })
+    const handleFormSubmit = (event) => {
+        event.preventDefault()
+        signInWithEmailAndPassword(userInfo.email, userInfo.password)
+    }
+    let navigate = useNavigate();
+    let location = useLocation();
+
+    let from = location.state?.from?.pathname || "/";
+
+    if (loginUser) {
+        navigate(from, { replace: true });
     }
 
-    const handleSubmitLogIn = event => {
-        event.preventDefault()
-        const email = emailRef.current.value
-        const password = passwordRef.current.value
-        signInWithEmailAndPassword(email, password)
-    }
     return (
         <div className='container w-50 mx-auto'>
-            <h2 className='text-primary text-center mt-2'>Please Login</h2>
-            <Form onClick={handleSubmitLogIn}>
+            <Form onSubmit={handleFormSubmit}>
+                <h2 className='text-center'>Please Login here</h2>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
+                    <Form.Control name='email' onBlur={(event) => handleFormControl(event)} type="email" placeholder="Enter email" required />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+
+                <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
+                    <Form.Control name='password' onBlur={(event) => handleFormControl(event)} type="password" placeholder="Password" required />
                 </Form.Group>
-                <Button variant="primary w-100 mx-auto d-block mb-2" type="submit">
-                    Login
+
+
+                <Form.Group className="mb-3">
+                    <Form.Text className='text-danger'>
+                        {confirmError}
+                        {error?.message}
+                    </Form.Text>
+                </Form.Group>
+
+                <Button className='w-100' variant="primary" type="submit">
+                    Submit
                 </Button>
+                <Form.Group className="mb-3">
+                    <Form.Text>
+                        New to Idle Trainer ? <Link className='text-decoration-none' to="/register">Register here</Link>
+                    </Form.Text>
+                </Form.Group>
+                {user && <p>user login successs</p>}
             </Form>
-
-            <p>New to Idle trainer? <span className='text-primary pe-auto text-decoration-none pointer' onClick={navigateToRegister}>Please Register</span> </p>
-            <p>Forget Password?<button className='btn btn-link text-primary pe-auto text-decoration-none'>Reset Password</button> </p>
-
         </div>
     );
 };
